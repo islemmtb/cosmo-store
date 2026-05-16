@@ -5,7 +5,7 @@ import Footer from '@/components/Footer';
 import ProductDetail from '@/components/ProductDetail';
 import type { Metadata } from 'next';
 
-type Props = { params: { slug: string } };
+type Props = { params: Promise<{ slug: string }> };
 
 async function getProduct(slug: string): Promise<Product | null> {
   const { data } = await supabase
@@ -18,7 +18,8 @@ async function getProduct(slug: string): Promise<Product | null> {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const product = await getProduct(params.slug);
+  const { slug } = await params;
+  const product = await getProduct(slug);
   if (!product) return { title: 'Produit introuvable' };
   return {
     title: `${product.name} — Cosmo Grossiste`,
@@ -27,7 +28,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function ProductPage({ params }: Props) {
-  const product = await getProduct(params.slug);
+  const { slug } = await params;
+  const product = await getProduct(slug);
   if (!product) notFound();
 
   return (
