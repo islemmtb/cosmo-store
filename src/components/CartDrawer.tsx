@@ -2,7 +2,6 @@
 import { useState } from 'react';
 import { X, Trash2, ShoppingBag, Loader2 } from 'lucide-react';
 import { useCart } from '@/hooks/useCart';
-import { supabase } from '@/lib/supabase';
 import toast from 'react-hot-toast';
 
 const fmt = (n: number) => new Intl.NumberFormat('fr-DZ').format(n) + ' DZD';
@@ -100,7 +99,7 @@ export default function CartDrawer({ open, onClose }: { open: boolean; onClose: 
                         </div>
                       </div>
                       <div className="flex flex-col items-end justify-between">
-                        <button onClick={() => removeItem(item.product.id)} className="text-rose-deep hover:opacity-70 transition-opacity">
+                        <button onClick={() => removeItem(item.product.id, item.unit_type)} className="text-rose-deep hover:opacity-70 transition-opacity">
                           <Trash2 size={16} />
                         </button>
                         <p className="font-body font-semibold text-espresso-900 text-sm">{fmt(price * item.quantity)}</p>

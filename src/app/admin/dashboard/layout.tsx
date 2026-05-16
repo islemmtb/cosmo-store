@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
+import { LayoutDashboard, Package, ShoppingBag, Upload, LogOut, Menu, X, Loader2 } from 'lucide-react';
 import { LayoutDashboard, Package, ShoppingBag, Upload, LogOut, Menu, X } from 'lucide-react';
 
 const navItems = [
@@ -16,16 +17,46 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  useEffect(() => {
-    const token = localStorage.getItem('admin-token');
-    if (!token) router.push('/admin');
-  }, [router]);
+useEffect(() => {
+  const token = localStorage.getItem('admin-token');
+  if (!token) {
+    router.push('/admin');
+    return;
+  }
+  fetch('/api/admin/products', {
+    headers: { Authorization: `Bearer ${token}` },
+  }).then(res => {
+    if (res.ok) {
+      setAuthorized(true);
+    } else {
+      localStorage.removeItem('admin-token');
+      router.push('/admin');
+    }
+  }).catch(() => {
+    router.push('/admin');
+  }).finally(() => {
+    setChecking(false);
+  });
+}, [router]);
+const [checking, setChecking] = useState(true);
+const [authorized, setAuthorized] = useState(false);
 
   const handleLogout = () => {
     localStorage.removeItem('admin-token');
     router.push('/admin');
   };
+if (checking) {
+  return (
+    <div className="min-h-screen bg-espresso-900 flex items-center justify-center">
+      <div className="text-center">
+        <Loader2 size={32} className="animate-spin text-rose-blush mx-auto mb-3" />
+        <p className="font-body text-cream-200 text-sm">Vérification…</p>
+      </div>
+    </div>
+  );
+}
 
+if (!authorized) return null;
   return (
     <div className="min-h-screen bg-cream-50 flex">
       {/* Mobile overlay */}

@@ -5,7 +5,7 @@ import { CartItem, Product } from '@/lib/supabase';
 type CartContextType = {
   items: CartItem[];
   addItem: (product: Product, quantity: number, unit_type: 'unite' | 'boite') => void;
-  removeItem: (productId: string) => void;
+  removeItem: (productId: string, unit_type: 'unite' | 'boite') => void;
   updateItem: (productId: string, quantity: number, unit_type: 'unite' | 'boite') => void;
   clearCart: () => void;
   total: number;
@@ -40,12 +40,12 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     });
   };
 
-  const removeItem = (productId: string) => {
-    setItems(prev => prev.filter(i => i.product.id !== productId));
-  };
+const removeItem = (productId: string, unit_type: 'unite' | 'boite') => {
+  setItems(prev => prev.filter(i => !(i.product.id === productId && i.unit_type === unit_type)));
+};
 
-  const updateItem = (productId: string, quantity: number, unit_type: 'unite' | 'boite') => {
-    if (quantity <= 0) { removeItem(productId); return; }
+const updateItem = (productId: string, quantity: number, unit_type: 'unite' | 'boite') => {
+  if (quantity <= 0) { removeItem(productId, unit_type); return; }
     setItems(prev =>
       prev.map(i => i.product.id === productId ? { ...i, quantity, unit_type } : i)
     );
