@@ -1,3 +1,4 @@
+export const revalidate = 0;
 import { supabase, Product } from '@/lib/supabase';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';

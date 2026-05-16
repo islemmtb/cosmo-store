@@ -1,3 +1,4 @@
+export const revalidate = 0;
 import { notFound } from 'next/navigation';
 import { supabase, Product } from '@/lib/supabase';
 import Navbar from '@/components/Navbar';
