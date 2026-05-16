@@ -16,9 +16,8 @@ async function getProducts(): Promise<Product[]> {
 
 export default async function CataloguePage() {
   const products = await getProducts();
-  const categories = [...new Set(products.map(p => p.category).filter(Boolean))];
-  const brands = [...new Set(products.map(p => p.brand).filter(Boolean))];
-
+const categories = Array.from(new Set(products.map(p => p.category).filter(Boolean)));
+const brands = Array.from(new Set(products.map(p => p.brand).filter(Boolean)));
   return (
     <>
       <Navbar />
