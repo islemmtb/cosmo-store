@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-playfair: 'Playfair Display', serif;
+  --font-dm-sans: 'DM Sans', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-dm-sans);
+  background-color: #fdfaf5;
+  color: #1a1008;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #f9f2e5; }
+::-webkit-scrollbar-thumb { background: #d4967f; border-radius: 3px; }
+
+/* Number input hide arrows */
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button { -webkit-appearance: none; }
+
+@layer components {
+  .btn-primary {
+    @apply bg-espresso-900 text-cream-50 px-6 py-3 font-body font-medium tracking-wide
+           hover:bg-espresso-800 transition-all duration-200 active:scale-95;
+  }
+  .btn-outline {
+    @apply border border-espresso-900 text-espresso-900 px-6 py-3 font-body font-medium
+           tracking-wide hover:bg-espresso-900 hover:text-cream-50 transition-all duration-200;
+  }
+  .input-field {
+    @apply w-full border border-cream-200 bg-white px-4 py-3 font-body text-espresso-900
+           focus:outline-none focus:border-rose-muted transition-colors placeholder:text-gray-400;
+  }
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+  }
+}
