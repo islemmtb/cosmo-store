@@ -10,6 +10,10 @@ const nextConfig = {
       },
     ],
   },
+  // Next.js 15: opt out of caching for dynamic data routes
+  experimental: {
+    dynamicIO: false,
+  },
 };
 
 module.exports = nextConfig;
