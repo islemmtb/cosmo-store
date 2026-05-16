@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { LayoutDashboard, Package, ShoppingBag, Upload, LogOut, Menu, X, Loader2 } from 'lucide-react';
-import { LayoutDashboard, Package, ShoppingBag, Upload, LogOut, Menu, X } from 'lucide-react';
 
 const navItems = [
   { href: '/admin/dashboard', label: 'Tableau de bord', icon: LayoutDashboard },

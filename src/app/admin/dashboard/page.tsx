@@ -1,4 +1,3 @@
-export const revalidate = 0;
 'use client';
 import { useEffect, useState } from 'react';
 import { Package, ShoppingBag, TrendingUp, Clock } from 'lucide-react';
